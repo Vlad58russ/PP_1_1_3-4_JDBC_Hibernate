@@ -1,23 +1,22 @@
 package jm.task.core.jdbc.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Util {
     private static final String userName = "root";
     private static final String password = "root";
     private static final String url = "jdbc:mysql://localhost:3306/mydbtest";
-    private static final String DB_Driver = "com.mysql.cj.jdbc.Driver";
-    public static Connection getConnection() {
-        Connection connection = null;
+
+    public static Connection getConnection() throws SQLException {
         try {
-            Class.forName(DB_Driver);
-            connection = DriverManager.getConnection(url, userName, password);
-        } catch (ClassNotFoundException | SQLException e) {
+            Driver driver = new com.mysql.cj.jdbc.Driver();
+            DriverManager.registerDriver(driver);
+        } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Connection ERROR");
         }
-        return connection;
+
+        try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+            return connection;
+        }
     }
 }

@@ -10,7 +10,15 @@ import static jm.task.core.jdbc.util.Util.getConnection;
 
 
 public class UserDaoJDBCImpl implements UserDao {
-    Connection connection = getConnection();
+    Connection connection;
+
+    {
+        try {
+            connection = getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public UserDaoJDBCImpl() {
     }
