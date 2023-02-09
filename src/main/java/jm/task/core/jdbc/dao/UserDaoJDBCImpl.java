@@ -1,24 +1,15 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.util.Util;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jm.task.core.jdbc.util.Util.getConnection;
-
-
 public class UserDaoJDBCImpl implements UserDao {
-    Connection connection;
 
-    {
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    Connection connection = Util.getConnection();
 
     public UserDaoJDBCImpl() {
     }
